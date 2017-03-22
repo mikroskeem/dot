@@ -1,0 +1,6 @@
+#!/bin/bash
+
+ffmpeg -i ${3} -ss ${1} -t ${2}  -vf scale=-1:720 -b:v 3000K -c:v libvpx -c:a libvorbis -threads 4 ${4}
+# -ss starttime -t length (fmt: 00:00:00)
+
+# vim: set ft=sh:

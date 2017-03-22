@@ -1,0 +1,25 @@
+!! ------ Rofi configuration
+
+rofi.modi: window,drun,run,ssh
+rofi.color-enabled: true
+rofi.fullscreen: true
+rofi.scrollbar-width: 0
+rofi.hide-scrollbar: true
+rofi.sidebar-mode: false
+rofi.padding: 200
+rofi.bw: 0
+!rofi.opacity: 85 // unsupported as of 1.3.0
+rofi.window-format: [{w}] {c} {t}
+rofi.case-sensitive: false
+rofi.parse-hosts: true
+rofi.parse-known-hosts: false
+
+rofi.separator-style: none
+
+! Color scheme is taken from: https://github.com/clyde80/i3-configuration
+rofi.color-window: argb:D007201d, argb:0007201d, argb:0007201d
+rofi.color-normal: argb:0007201d, #ffffff, argb:0007201d, #ff0031, #ffffff
+rofi.color-active: argb:0007201d, #ffffff, argb:0007201d, #ff0031, #ffffff
+rofi.color-urgent: argb:0007201d, #ffffff, argb:0007201d, #ff0000, #ffffff
+
+! vim:ft=xdefaults

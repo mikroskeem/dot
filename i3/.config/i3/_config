@@ -1,0 +1,182 @@
+#!nobracket
+### Startup applications
+exec --no-startup-id sh ~/.fehbg
+exec --no-startup-id compton -Ccb
+exec --no-startup-id wpa_gui -tq
+exec --no-startup-id unclutter --timeout 1
+exec --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon
+exec --no-startup-id ~/bin/touchpad.sh
+
+### Use Windows key
+set $mod!!1,2 Mod!!4,1
+floating_modifier $mod1
+
+### Modes
+set $mode_resize Resize:     (h/j/k/l), (o) toggle border
+set $mode_gaps Gaps: (o) outer, (i) inner
+set $mode_gaps_!!inner,outer !!Inner,Outer Gaps: +/-/0
+set $mode_system (e) logout, (s) suspend, (h) hibernate, (r) kexec, (R) reboot, (S) shutdown
+set $mode_meme (s) shrug, (l) lenny, (r) reich
+
+### Font
+font pango:Noto Sans, Font Awesome 10
+
+### Change focus
+bindsym $mod1+!!Left,Down,Up,Right focus !!<left,down,up,right>
+
+### Move windows
+bindsym $mod1+Shift+!!Left,Down,Up,Right move !!<left,down,up,right>
+
+### Layout modes and focus settings
+bindsym $mod1+!!f,a,w,e,space !!<fullscreen toggle,focus parent,layout tabbed,layout toggle split,focus mode_toggle>
+bindsym $mod1+Shift+!!w,space !!<layout stacking,floating toggle>
+bindsym $mod1+!!h,v split !!h,v
+
+### Workspaces
+set $w!!1..10 !!1:,2..8,9:,10:
+
+# Switch between workspaces
+bindsym $mod1!!<2!,+Shift>+!!1!1..9,0 !!<2!,move container to >workspace $w!!1!1..10
+
+bindsym Ctrl+$mod1+!!Right,Left workspace !!next,prev
+bindsym Ctrl+Shift+$mod1+!!Right,Left move container to workspace !!next,prev
+
+### Reload/restart i3
+bindsym $mod1+Shift+c exec i3bang ~/.config/i3/_config ~/.config/i3/config; reload
+bindsym $mod1+Shift+r restart
+
+### Modes for resizing windows/changing gaps
+mode "$mode_resize" {
+    bindsym !!Right,Up,Left,Down resize \
+        !!<shrink,grow,grow,shrink> \
+        !!<width,height,width,height> 5 px or 5 ppt
+
+    bindsym o border toggle
+    bindsym !!Return,Escape mode "default"
+}
+
+mode "$mode_gaps" {
+    bindsym !!o,i mode "$mode_gaps_!!<outer,inner>"
+    bindsym !!Escape,Return mode "default"
+}
+
+mode "$mode_gaps_inner" {
+    bindsym !!plus,minus,0 gaps inner current \
+        !!plus,minus,set !!5,5,0
+    bindsym !!Escape,Return mode "$mode_gaps"
+}
+
+mode "$mode_gaps_outer" {
+    bindsym !!plus,minus,0 gaps outer current \
+        !!plus,minus,set !!5,5,0
+    bindsym !!Escape,Return mode "$mode_gaps"
+}
+
+mode "$mode_system" {
+    bindsym e exec --no-startup-id i3-msg exit, mode "default"
+    bindsym !!s,h,r exec --no-startup-id systemctl !!<suspend,hibernate,kexec>, mode "default"
+    bindsym Shift+!!r,s exec --no-startup-id systemctl !!<reboot,poweroff>, mode "default"
+    bindsym !!Escape,Return mode "default"
+}
+
+mode "$mode_meme" {
+    bindsym !!l,s,r exec --no-startup-id /home/mark/bin/quickmeme !!<lenny,shrug,reich>, mode "default"
+    bindsym !!Escape,Return mode "default"
+}
+
+
+bindsym $mod1+!!<r,Shift+g,Shift+e,$mod2+c> mode "$mode_!!<resize,gaps,system,meme>"
+
+### Keybinds
+
+# Menu
+bindsym $mod1+!!d,Shift+d exec --no-startup-id rofi -show !!drun,ssh
+bindsym $mod2+Tab exec --no-startup-id rofi -show window
+bindsym $mod1+F7 exec --no-startup-id passmenu --type
+bindsym $mod1+$mod2+t exec --no-startup-id rofi -show tmuxopen:/home/mark/bin/rofi-tmuxopen.sh
+
+# Most used
+bindsym $mod1+Shift+q kill
+bindsym $mod1+Return exec urxvt
+bindsym $mod1+Shift+Return exec urxvt -name floatingURxvt
+
+bindsym --release $mod1+!!<Shift+s,$mod2+s,$mod2+e,$mod2+x> exec --no-startup-id \
+    /home/mark/bin/0x0-gui !!screenshotselect,screenshot,shorten,upload
+
+# Audio controls
+bindsym $mod2+XF86Audio!!<Raise,Lower>Volume exec --no-startup-id \
+    amixer -c 1 -q set Master 1dB!!<+,-> unmute
+
+bindsym XF86Audio!!<Raise,Lower>Volume exec --no-startup-id \
+    pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo !!<+,->1%
+
+bindsym $mod2+XF86AudioMute exec --no-startup-id amixer -c 1 -q set Master toggle
+bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle
+
+# MPD controls
+bindsym Shift+XF86Audio!!<Raise,Lower>Volume exec --no-startup-id \
+    mpc -h ~/.config/mpd/mpd.sock volume !!<+,->2
+bindsym XF86Audio!!<Play,Next,Prev> exec --no-startup-id \
+    mpc -h ~/.config/mpd/mpd.sock !!toggle,next,prev
+
+# Backlight controls
+bindsym XF86MonBrightness!!<Up,Down> \
+    exec --no-startup-id light -!!<A,U> 2
+
+bindsym $mod1+!!Prior,Next \
+    exec --no-startup-id light -!!<A,U> 2
+
+### Scratchpad
+
+# Make the currently focused window a scratchpad
+bindsym $mod1+Shift+Tab move scratchpad
+
+# Show the first scratchpad window
+bindsym $mod1+Tab scratchpad show
+
+### Sticky window
+bindsym Ctrl+$mod2+Tab sticky toggle
+
+### Workspace switching
+workspace_auto_back_and_forth yes
+
+### New window options
+new_window pixel 0
+new_float pixel 0
+hide_edge_borders both
+focus_follows_mouse yes
+gaps inner 10
+# smart_gaps on
+
+### i3bar
+bindsym $mod1+b bar mode toggle
+
+bar {
+    i3bar_command           i3bar -t
+    strip_workspace_numbers yes
+    font                    pango:Noto Sans, Font Awesome 10
+    status_command          i3status -c ~/.config/i3status/i3status.conf
+    workspace_buttons       yes
+    separator_symbol        " "
+    position                bottom
+    modifier                $mod1
+    colors {
+        background          #000000BF
+        separator           #ffffff
+        statusline          #999999
+        focused_workspace   #000000 #7f80ff #1c1c1c
+        active_workspace    #000000 #333333 #ffffff
+        inactive_workspace  #000000 #1b1b1b #ffffff
+        urgent_workspace    #000000 #ff5151 #1c1c1c
+        binding_mode        #000000 #ff5151 #1c1c1c
+    }
+}
+
+for_window [class="URxvt" instance="floatingURxvt"] floating enable
+for_window [class="Pinentry" instance="pinentry"] floating enable
+for_window [class="qjackctl" instance="qjackctl"] floating enable
+for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
+for_window [class="sun-applet-Main" instance="sun-awt-X11-XFramePeer"] floating enable
+for_window [window_role="pop-up"] floating enable
+
+# vim:ft=i3

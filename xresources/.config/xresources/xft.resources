@@ -1,0 +1,12 @@
+!! ------ Xft configuration
+! http://dpi.lv/#17.3″
+!Xft.dpi: 96
+Xft.dpi: 106
+Xft.antialias: true
+Xft.hinting: true
+Xft.rgba: rgb
+Xft.autohint: false
+Xft.hintstyle: hintslight
+Xft.lcdfilter: lcddefault
+
+! vim:ft=xdefaults

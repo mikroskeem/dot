@@ -1,0 +1,14 @@
+!! ----- Xft
+#include ".config/xresources/xft.resources"
+
+!! ----- Urxvt
+#include ".config/xresources/urxvt.resources"
+
+!! ----- Colors
+#include ".config/xresources/colorthemes/afterglow.scheme"
+!#include ".config/xresources/colorthemes/solarizeddark.scheme"
+!#include ".config/xresources/colorthemes/stock.scheme"
+!#include ".config/xresources/colorthemes/visiblue.scheme"
+
+!! ----- Rofi
+#include ".config/xresources/rofi.resources"

@@ -1,0 +1,109 @@
+#!/bin/bash
+DEFAULT_ENV="vblank_mode=0"
+NOUVEAU_TURN_OFF=0
+
+if [ ${#} -eq 0 ]; then
+    echo "Usage: ${0} <command to run on NVIDIA GPU>"
+    exit 1
+fi
+
+set_trap() {
+    sig=${1}
+    msg="echo -e \"\n$myname received ^C, sending $sig to child, $pid\""
+    trap "$msg; kill_prog SIGINT $pid" SIGINT
+}
+
+kill_prog(){
+    initial_sig=${1}
+    pid=${2}
+    counter=0
+    kill -s ${initial_sig} ${pid}
+    while true; do
+        if [ -d "/proc/${pid}" ]; then
+            if (kill -0 ${pid}); then
+                if [ "${counter}" -eq 0 ]; then
+                    echo ">> Program still alive after ${initial_sig}, waiting and sending SIGTERM"
+                fi
+                if [ "${counter}" -eq 50 ]; then
+                    kill -s TERM ${pid}
+                fi
+                if [ "${counter}" -eq 70 ]; then
+                    kill -s KILL ${pid}
+                    break
+                fi
+                sleep 0.1
+                counter=`expr ${counter} + 1`
+            fi
+        else
+            break
+        fi
+    done
+}
+
+# Set up logging
+_log="$(mktemp -u /tmp/prime_or_nah.XXXXXXX)"
+logfifo="${_log}.fifo"
+logfile="${_log}.log"
+exitstatus="99"
+
+mkfifo "${logfifo}"
+tee "${logfile}" < "${logfifo}" &
+
+# Use NVIDIA propietary driver, if it is available (try glvnd, then bumblebeed)
+if (glxinfo | grep -q "NVIDIA Corporation"); then
+    echo ">> Using nvidia propietary driver (over glvnd)"
+    exec env ${DEFAULT_ENV} __GLX_VENDOR_LIBRARY_NAME=nvidia "${@}" 2>&1 > "${logfifo}" &
+    pid=${!}
+    set_trap SIGINT
+    wait ${pid}
+    exitstatus=${?}
+elif (systemctl is-active bumblebeed.service >/dev/null 2>&1); then
+    echo ">> Using nvidia propietary driver (over bumblebeed)"
+    # https://github.com/amonakov/primus/issues/193#issuecomment-278052231
+    exec env ${DEFAULT_ENV} PRIMUS_SYNC=0 __GLVND_DISALLOW_PATCHING=1 primusrun "${@}" 2>&1 > "${logfifo}" &
+    pid=${!}
+    set_trap SIGINT
+    wait ${pid}
+    exitstatus=${?}
+else
+    # Turn on GPU and load nouveau driver, if needed
+#    if [ ! -z "`modinfo nouveau`" ]; then
+#        if [ -z "`lsmod | grep nouveau`" ]; then
+#            if [ -f /proc/acpi/bbswitch ]; then
+#                echo "ON" | sudo tee /proc/acpi/bbswitch >/dev/null
+#            fi
+#            sudo modprobe nouveau pstate=1 vram_pushbuf=1 atomic=1 runpm=-1
+#            NOUVEAU_TURN_OFF=1
+#        fi
+#    else
+#        zenity --error --text="Nouveau driver is not available! Please install it."
+#        exit 1
+#    fi
+
+    # Run program
+    echo ">> Using nouveau driver"
+    exec env ${default_env} DRI_PRIME=1 GALLIUM_HUD=fps "${@}" 2>&1 > "${logfifo}" &
+    pid=${!}
+    set_trap SIGINT
+    wait ${pid}
+    exitstatus="${?}"
+
+    # Turn GPU off afterwards
+#    if [ "${NOUVEAU_TURN_OFF}" -eq 1 ]; then
+#        sudo modprobe -r nouveau
+#        if [ -f /proc/acpi/bbswitch ]; then
+#            echo "OFF" | sudo tee /proc/acpi/bbswitch >/dev/null
+#        fi
+#    fi
+fi
+
+rm "${logfifo}"
+
+echo ">> Program exited with status ${exitstatus}"
+
+# Check exit status
+if [ ! -z "${exitstatus}" ]; then
+    if [ ! "${exitstatus}" -eq 0 ]; then
+        zenity --info --text="Program exited with code ${exitstatus}. Log is available at ${logfile}"
+    fi
+fi

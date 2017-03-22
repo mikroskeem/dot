@@ -1,0 +1,62 @@
+#!/usr/bin/env bash
+
+DISPLAY=${DISPLAY:=":0"}
+
+0x0-gui () {
+    if [ "${1}" = "shorten" ]; then
+        # Shorten
+        local d=`zenity --entry --text "Link"`
+        if [ -z "${d}" ]; then
+            return 1
+        fi
+
+        local url=`~/bin/0x0 s ${d}`
+        [ -z "${url}" ] && return 1
+        echo -n "${url}" | xsel -ib
+        notify-send -t 500 -i info "0x0 shorten: ${url}" "Link pasted to clipboard"
+    elif [ "${1}" = "upload" ]; then
+        # Upload
+        local d=`zenity --file-selection --title="File"`
+        if [ -z "${d}" ]; then
+            return 1
+        fi
+
+        local url=`~/bin/0x0 u ${d}`
+        [ -z "${url}" ] && return 1
+        echo -n "${url}" | xsel -ib
+        notify-send -t 500 -i info "0x0 file upload: ${url}" "Link pasted to clipboard"
+    elif [ "${1}" = "screenshotselect" ]; then
+        # Screenshot file
+        local d=~/Pictures/Screenshots/screenshot-$(date +%d_%m_%Y-%H:%M:%S).png
+        if ! maim -s ${d}; then
+            echo "Failed to execute screenshot application"
+            return
+        fi
+
+        # Upload that
+        local url=`~/bin/0x0 u ${d}`
+        [ -z "${url}" ] && return 1
+        echo -n "${url}" | xsel -ib
+        notify-send -t 500 -i info "0x0 screenshot: ${url}" "Link pasted to clipboard"
+        xdg-open "${url}"
+    elif [ "${1}" = "screenshot" ]; then
+        # Screenshot file
+        local d=~/Pictures/Screenshots/screenshot-$(date +%d_%m_%Y-%H:%M:%S).png
+        if ! maim ${d}; then
+            echo "Failed to execute screenshot application"
+            return
+        fi
+
+        # Upload that
+        local url=`~/bin/0x0 u ${d}`
+        [ -z "${url}" ] && return 1
+        echo -n "${url}" | xsel -ib
+        notify-send -t 500 -i info "0x0 screenshot: ${url}" "Link pasted to clipboard"
+        xdg-open "${url}"
+
+    else
+        return
+    fi
+}
+
+0x0-gui $*

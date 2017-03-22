@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+
+0x0() {
+    case "${1}" in
+        "s")
+            shift
+            local url=`curl --silent -F"shorten=${1}" https://0x0.st | sed 's/\n//'`
+            echo -n "${url}"
+            ;;
+        "u")
+            shift
+            
+            # Do sanity checks
+            local f=`realpath ${1}`
+            if [ ! -f "${f}" ]; then
+                echo "No such file"
+                return 1
+            fi
+            
+            # Now... post!
+            local url=`curl --silent -F"file=@${f}" https://0x0.st | sed 's/\n//'`
+            echo -n "${url}"
+            ;;
+        "ur")
+            shift
+            local url=`curl --silent -F"url=${1}" https://0x0.st | sed 's/\n//'`
+            echo -n "${url}"
+            ;;
+        *)
+            cat <<EOF
+Usage: $(basename ${0}) [s/u/ur]
+s  = shorten
+u  = upload
+ur = upload from remote
+EOF
+;;
+    esac
+}
+
+0x0 $*
