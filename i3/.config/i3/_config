@@ -80,7 +80,7 @@ mode "$mode_system" {
 }
 
 mode "$mode_meme" {
-    bindsym !!l,s,r exec --no-startup-id /home/mark/bin/quickmeme !!<lenny,shrug,reich>, mode "default"
+    bindsym !!l,s,r exec --no-startup-id ~/bin/quickmeme !!<lenny,shrug,reich>, mode "default"
     bindsym !!Escape,Return mode "default"
 }
 
@@ -93,7 +93,6 @@ bindsym $mod1+!!<r,Shift+g,Shift+e,$mod2+c> mode "$mode_!!<resize,gaps,system,me
 bindsym $mod1+!!d,Shift+d exec --no-startup-id rofi -show !!drun,ssh
 bindsym $mod2+Tab exec --no-startup-id rofi -show window
 bindsym $mod1+F7 exec --no-startup-id passmenu --type
-bindsym $mod1+$mod2+t exec --no-startup-id rofi -show tmuxopen:/home/mark/bin/rofi-tmuxopen.sh
 
 # Most used
 bindsym $mod1+Shift+q kill
@@ -101,7 +100,7 @@ bindsym $mod1+Return exec urxvt
 bindsym $mod1+Shift+Return exec urxvt -name floatingURxvt
 
 bindsym --release $mod1+!!<Shift+s,$mod2+s,$mod2+e,$mod2+x> exec --no-startup-id \
-    /home/mark/bin/0x0-gui !!screenshotselect,screenshot,shorten,upload
+    ~/bin/0x0-gui !!screenshotselect,screenshot,shorten,upload
 
 # Audio controls
 bindsym $mod2+XF86Audio!!<Raise,Lower>Volume exec --no-startup-id \
