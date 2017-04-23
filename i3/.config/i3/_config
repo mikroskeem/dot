@@ -180,4 +180,8 @@ for_window [window_role="pop-up"] floating enable
 # Authy
 for_window [class="Chrom*" instance="crx_gaedmjdfmmahhbjefcbgaolhhanlaolb"] floating enable
 
+# Per-workspace gaps
+workspace $w1 gaps inner 0
+workspace $w1 gaps outer 0
+
 # vim:ft=i3
