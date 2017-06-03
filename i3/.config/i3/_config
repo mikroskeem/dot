@@ -140,7 +140,7 @@ new_float pixel 0
 hide_edge_borders both
 focus_follows_mouse yes
 gaps inner 10
-# smart_gaps on
+smart_gaps on
 
 ### i3bar
 bindsym $mod1+b bar mode toggle
