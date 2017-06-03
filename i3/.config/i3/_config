@@ -1,11 +1,6 @@
 #!nobracket
 ### Startup applications
-exec --no-startup-id sh ~/.fehbg
-exec --no-startup-id compton -Ccb
-exec --no-startup-id wpa_gui -tq
-exec --no-startup-id unclutter --timeout 1
-exec --no-startup-id /usr/lib/notification-daemon-1.0/notification-daemon
-exec --no-startup-id ~/bin/touchpad.sh
+exec --no-startup-id ~/.config/i3/init.sh
 
 ### Use Windows key
 set $mod!!1,2 Mod!!4,1
@@ -150,26 +145,6 @@ gaps inner 10
 ### i3bar
 bindsym $mod1+b bar mode toggle
 
-bar {
-    i3bar_command           i3bar -t
-    strip_workspace_numbers yes
-    font                    pango:Noto Sans, Font Awesome 10
-    status_command          i3status -c ~/.config/i3status/i3status.conf
-    workspace_buttons       yes
-    separator_symbol        " "
-    position                bottom
-    modifier                $mod1
-    colors {
-        background          #000000BF
-        separator           #ffffff
-        statusline          #999999
-        focused_workspace   #000000 #7f80ff #1c1c1c
-        active_workspace    #000000 #333333 #ffffff
-        inactive_workspace  #000000 #1b1b1b #ffffff
-        urgent_workspace    #000000 #ff5151 #1c1c1c
-        binding_mode        #000000 #ff5151 #1c1c1c
-    }
-}
 
 for_window [class="URxvt" instance="floatingURxvt"] floating enable
 for_window [class="Pinentry" instance="pinentry"] floating enable

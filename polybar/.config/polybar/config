@@ -1,0 +1,285 @@
+[colors]
+good = "#7F80FF"
+degraded = "#F0C674"
+bad = "#FF0031"
+
+; Base16 Eighties
+base00 = "#2d2d2d"
+base01 = "#393939"
+base02 = "#515151"
+base03 = "#747369"
+base04 = "#a09f93"
+base05 = "#d3d0c8"
+base06 = "#e8e6df"
+base07 = "#f2f0ec"
+base08 = "#f2777a"
+base09 = "#f99157"
+base0A = "#ffcc66"
+base0B = "#99cc99"
+base0C = "#66cccc"
+base0D = "#6699cc"
+base0E = "#cc99cc"
+base0F = "#d27b53"
+
+; Wut
+background = #222
+background-alt = #444
+foreground = #222
+foreground-alt = #555
+primary = #ffb52a
+secondary = #e60053
+alert = #bd2c40
+
+underline = "#7F80FF"
+error = "#FF0031"
+
+; Default settings
+[settings]
+screenchange-reload = true
+margin-top = 0
+margin-bottom = 0
+
+[bar/default]
+; NVIDIA Optimus default, Intel fallback
+monitor = eDP-1-1
+monitor-fallback = eDP-1
+
+; Colors
+background = ${colors.base01}
+
+; Fonts
+font-0 = "Noto Sans:size=10"
+font-1 = "Font Awesome:size=10"
+
+; Position & padding
+bottom = true
+width = 100%
+height = 27
+offset-x = 0%
+offset-y = 0%
+padding = 2
+module-margin = 1
+fixed-center = true
+
+; i3wm
+wm-restack = i3
+override-redirect = false
+
+; Tray
+tray-detached = false
+tray-transparent = false
+tray-position = right
+tray-padding = 2
+
+; Scroll actions
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+
+; Modules
+modules-left = i3
+modules-center = xwindow
+modules-right = cpu ram wlan eth xkeyboard volume battery date
+
+line-size = 3
+line-color = #f00
+
+; i3 module
+[module/i3]
+type = internal/i3
+
+wrapping-scroll = true ; Do not allow infinite scroll!
+pin-workspaces = true
+strip-wsnumbers = true
+index-sort = true
+
+; Mode label
+;label-mode-padding = 2
+;label-mode-background = "#ff5151"
+;label-mode-foreground = "#1c1c1c"
+
+; Focused
+;label-focused = %name%
+;label-focused-background = "#000000"
+;label-focused-foreground = "#7f80ff"
+;label-focused-padding = 2
+
+; Unfocused
+;label-unfocused = %name%
+;label-unfocused-padding = 2
+
+; Visible - Active workspace on unfocused monitor
+;label-visible = %name%
+;label-visible-background = "#000000"
+;label-visible-foreground = "#333333"
+;label-visible-padding = 2
+
+; Urgent
+;label-urgent = %name%
+;label-urgent-foreground = "#000000"
+;label-urgent-background = "#1c1c1c"
+;label-urgent-padding = 2
+
+label-mode-padding = 2
+label-mode-foreground = #000
+label-mode-background = ${colors.primary}
+
+; focused = Active workspace on focused monitor
+label-focused = %name%
+label-focused-background = ${colors.background-alt}
+label-focused-underline = ${colors.primary}
+label-focused-padding = 2
+
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %name%
+label-unfocused-padding = 2
+
+; visible = Active workspace on unfocused monitor
+label-visible = %name%
+label-visible-background = ${self.label-focused-background}
+label-visible-underline = ${self.label-focused-underline}
+label-visible-padding = 2
+
+; urgent = Workspace with urgency hint set
+label-urgent = %name%
+label-urgent-background = ${colors.alert}
+label-urgent-padding = 2
+
+
+; CPU
+[module/cpu]
+type = internal/cpu
+interval = 0.5
+
+format = "<label>"
+format-underline = ${colors.base09}
+label = " %percentage%%"
+
+; RAM
+[module/ram]
+type = internal/memory
+interval = 2
+format = "<label>"
+format-underline = ${colors.base0B}
+label = " %gb_used%/%gb_total%"
+
+; Wifi status
+[module/wlan]
+type = internal/network
+interface = wlp6s0
+interval = 3.0
+
+format-connected = "%{A1:rofi -show wifi:}<label-connected>%{A}"
+format-connected-underline = ${colors.underline}
+format-disconnected = "%{A1:rofi -show wifi:}<label-disconnected>%{A}"
+format-disconnected-underline = ${colors.error}
+label-connected = "   %essid% |  %signal%%  %downspeed%"
+label-disconnected = "  "
+
+; Ethernet status
+[module/eth]
+type = internal/network
+interface = enp7s0
+interval = 3.0
+
+format-connected = "<label-connected>"
+format-connected-underline = ${colors.underline}
+label-connected = "  [%linkspeed%]"
+
+format-disconnected = "<label-disconnected>"
+format-disconnected-underline = ${colors.error}
+label-disconnected = "  "
+
+; Window title module
+[module/xwindow]
+type = internal/xwindow
+label = %title:0:60:...%
+
+; Keyboard layout module
+[module/xkeyboard]
+type = internal/xkeyboard
+blacklist-0 = num lock
+blacklist-1 = scroll lock
+
+format = " <label-layout> <label-indicator>"
+format-underline = ${colors.base0E}
+
+label-layout = "%layout%"
+
+label-indicator = ""
+label-indicator-padding = 2
+label-indicator-margin = 1
+label-indicator-foreground = ${colors.error}
+label-indicator-underline = ${colors.base0E}
+
+; Volume module
+[module/volume]
+type = internal/volume
+
+format-volume = "%{A3:/usr/bin/pavucontrol:}<label-volume> <bar-volume>%{A}"
+format-volume-underline = ${colors.base0D}
+label-volume = " %percentage%%"
+
+format-muted = "%{A3:/usr/bin/pavucontrol:}<label-muted> <bar-volume>%{A}"
+format-muted-underline = ${colors.error}
+label-muted = "  %percentage%%"
+
+bar-volume-width = 10
+bar-volume-foreground-0 = #55aa55
+bar-volume-foreground-1 = #55aa55
+bar-volume-foreground-2 = #55aa55
+bar-volume-foreground-3 = #55aa55
+bar-volume-foreground-4 = #55aa55
+bar-volume-foreground-5 = #f5a70a
+bar-volume-foreground-6 = #ff5555
+bar-volume-gradient = false
+bar-volume-indicator = |
+bar-volume-indicator-font = 2
+bar-volume-fill = ─
+bar-volume-fill-font = 2
+bar-volume-empty = ─
+bar-volume-empty-font = 2
+
+; Battery module
+[module/battery]
+type = internal/battery
+poll-inteval = 3
+battery = BAT0
+adapter = AC
+full-at = 100
+
+format-charging = "%{A1:/usr/bin/showbatt:}<animation-charging> <label-charging>%{A}"
+format-charging-underline = ${colors.base0A}
+
+format-discharging = "%{A1:/usr/bin/showbatt:}<ramp-capacity> <label-discharging>%{A}"
+format-discharging-underline = ${colors.base09}
+
+label-full = "  "
+format-full = "%{A1:/usr/bin/showbatt:}<label-full> 100%%{A}"
+format-full-underline = ${colors.base0B}
+
+ramp-capacity-0 = ""
+ramp-capacity-1 = ""
+ramp-capacity-2 = ""
+ramp-capacity-3 = ""
+ramp-capacity-4 = ""
+ramp-capacity-foreground = ${colors.base05}
+
+animation-charging-0 = " "
+animation-charging-1 = " "
+animation-charging-2 = " "
+animation-charging-3 = " "
+animation-charging-4 = " "
+animation-charging-foreground = ${colors.base05}
+animation-charging-framerate = 750
+
+; Date module
+[module/date]
+type = internal/date
+interval = 1
+date = "%Y-%m-%d"
+time = %H:%M:%S
+
+format-underline = ${colors.base0C}
+label = %date% %time%
+
+; vim:ft=dosini
