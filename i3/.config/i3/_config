@@ -11,7 +11,7 @@ set $mode_resize Resize:     (h/j/k/l), (o) toggle border
 set $mode_gaps Gaps: (o) outer, (i) inner
 set $mode_gaps_!!inner,outer !!Inner,Outer Gaps: +/-/0
 set $mode_system (e) logout, (s) suspend, (h) hibernate, (r) kexec, (R) reboot, (S) shutdown
-set $mode_meme (s) shrug, (l) lenny, (r) reich
+set $mode_raw raw mode, Win+F9 to exit
 
 ### Font
 font pango:Noto Sans, Font Awesome 10
@@ -74,13 +74,11 @@ mode "$mode_system" {
     bindsym !!Escape,Return mode "default"
 }
 
-mode "$mode_meme" {
-    bindsym !!l,s,r exec --no-startup-id ~/bin/quickmeme !!<lenny,shrug,reich>, mode "default"
-    bindsym !!Escape,Return mode "default"
+mode "$mode_raw" {
+    bindsym $mod1+F9 mode "default"
 }
 
-
-bindsym $mod1+!!<r,Shift+g,Shift+e,$mod2+c> mode "$mode_!!<resize,gaps,system,meme>"
+bindsym $mod1+!!<r,Shift+g,Shift+e,F9> mode "$mode_!!<resize,gaps,system,raw>"
 
 ### Keybinds
 
@@ -88,6 +86,7 @@ bindsym $mod1+!!<r,Shift+g,Shift+e,$mod2+c> mode "$mode_!!<resize,gaps,system,me
 bindsym $mod1+!!d,Shift+d exec --no-startup-id rofi -show !!drun,ssh
 bindsym $mod2+Tab exec --no-startup-id rofi -show window
 bindsym $mod1+F7 exec --no-startup-id passmenu --type
+bindsym $mod1+F8 exec --no-startup-id ~/bin/snippets.sh
 
 # Most used
 bindsym $mod1+Shift+q kill
