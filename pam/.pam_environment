@@ -1,1 +1,2 @@
-LANG            DEFAULT="et_EE.UTF-8"
+LANG            DEFAULT="en_US.UTF-8"
+_JAVA_OPTIONS   DEFAULT="-Dawt.useSystemAAFontSettings=on"
