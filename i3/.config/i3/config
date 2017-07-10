@@ -1,0 +1,17 @@
+# i3 config file (v4)
+#
+# ^ Fuck you, if I remove this line then i3 triggers configuration converter, which
+#   seems to be broken :(
+
+font pango:monospace 8
+set $mod1 Mod4
+floating_modifier $mod1
+bindsym $mod1+Shift+e exec --no-startup-id i3-msg exit
+
+# Start i3bar to display a workspace bar (plus the system information i3status
+# finds out, if available)
+bar {
+    status_command cat
+    mode hide
+}
+exec --no-startup-id sh -c 'zenity --info --text="Generating configuration, please log in again after i3 exits! :)"; i3bang ~/.config/i3/_config ~/.config/i3/config; i3-msg exit'
