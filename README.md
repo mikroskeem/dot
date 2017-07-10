@@ -25,6 +25,7 @@ There might be some packages missing. Not sure ¯\\\_(ツ)\_/¯
 - rofi (binary also symlinked to _/usr/local/bin/dmenu_)
 - rxvt-unicode
 - slock
+- stow (not really required, but makes config installation easier)
 - wpa_cli
 - wpa_supplicant
 - xdg-utils
