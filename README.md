@@ -17,6 +17,9 @@ There might be some packages missing. Not sure ¯\\\_(ツ)\_/¯
 - maim
 - mpc
 - mpd
+- noto-fonts
+- noto-fonts-cjk
+- noto-fonts-emoji
 - osdbattery
 - pass
 - pavucontrol
@@ -26,6 +29,8 @@ There might be some packages missing. Not sure ¯\\\_(ツ)\_/¯
 - rxvt-unicode
 - slock
 - stow (not really required, but makes config installation easier)
+- terminus-font
+- urxvt-perls
 - wpa_cli
 - wpa_supplicant
 - xdg-utils
@@ -33,6 +38,7 @@ There might be some packages missing. Not sure ¯\\\_(ツ)\_/¯
 - xorg-xrandr
 - xorg-xrdb
 - xosd
+- xsel
 - zenity
 
 ### From AUR
@@ -40,4 +46,5 @@ There might be some packages missing. Not sure ¯\\\_(ツ)\_/¯
 - i3bang-git
 - light-git
 - polybar
+- ttf-font-awesome
 - uncutter-xfixes-git
