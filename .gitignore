@@ -1,1 +1,5 @@
+# Log files
 *.log
+
+# i3
+i3/.config/i3/config
