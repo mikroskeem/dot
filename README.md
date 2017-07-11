@@ -31,7 +31,6 @@ There might be some packages missing. Not sure ¯\\\_(ツ)\_/¯
 - stow (not really required, but makes config installation easier)
 - terminus-font
 - urxvt-perls
-- wpa_cli
 - wpa_supplicant
 - xdg-utils
 - xorg-xinput
@@ -47,4 +46,4 @@ There might be some packages missing. Not sure ¯\\\_(ツ)\_/¯
 - light-git
 - polybar
 - ttf-font-awesome
-- uncutter-xfixes-git
+- unclutter-xfixes-git
