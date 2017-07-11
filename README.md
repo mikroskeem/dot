@@ -13,6 +13,7 @@ There might be some packages missing. Not sure ¯\\\_(ツ)\_/¯
 - compton
 - curl
 - feh
+- jsoncpp
 - libnotify
 - maim
 - mpc
@@ -31,6 +32,7 @@ There might be some packages missing. Not sure ¯\\\_(ツ)\_/¯
 - stow (not really required, but makes config installation easier)
 - terminus-font
 - urxvt-perls
+- wireless_tools
 - wpa_supplicant
 - xdg-utils
 - xorg-xinput
