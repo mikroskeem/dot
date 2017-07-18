@@ -9,4 +9,5 @@ if [ -z "${1}" ]; then
     echo -n "${buffer}"
 else
     wpa_cli select_network "${1}" 1>&2
+    wpa_cli save_config 1>&2
 fi
