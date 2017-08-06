@@ -9,6 +9,11 @@ find_powerclamp () {
     done
 }
 
+if [ -z "${1}" ]; then
+    echo "Usage: ${0} 0-50"
+    exit 1
+fi
+
 clamp_dev="`find_powerclamp`"
 
 if [ ! -z "${clamp_dev}" ]; then
