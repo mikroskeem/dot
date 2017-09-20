@@ -2,8 +2,10 @@
 
 # NVIDIA sw cursor quirk workaround
 if (glxinfo | grep "OpenGL vendor string:" | grep -q "NVIDIA Corporation"); then
-    xrandr --output 'eDP-1-1' --set 'PRIME Synchronization' '0'
-    xrandr --output 'eDP-1-1' --set 'PRIME Synchronization' '1'
+    for output in 'eDP-1-1' 'HDMI-1-1'; do
+        xrandr --output "${output}" --set 'PRIME Synchronization' '0'
+        xrandr --output "${output}" --set 'PRIME Synchronization' '1'
+    done
 fi
 
 # Polybar
@@ -26,3 +28,6 @@ unclutter --timeout 1 --fork
 
 # Notifications
 /usr/lib/notification-daemon-1.0/notification-daemon &
+
+# See https://github.com/flatpak/xdg-desktop-portal-gtk/issues/72
+dbus-update-activation-environment --systemd DBUS_SESSION_BUS_ADDRESS DISPLAY XAUTHORITY
