@@ -40,9 +40,8 @@ margin-top = 0
 margin-bottom = 0
 
 [bar/default]
-; NVIDIA Optimus default, Intel fallback
-monitor = eDP-1-1
-monitor-fallback = eDP-1
+; Keeping empty to make bar appear on every display
+monitor =
 
 ; Colors
 background = ${colors.base01}
