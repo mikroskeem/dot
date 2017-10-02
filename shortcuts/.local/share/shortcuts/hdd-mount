@@ -1,0 +1,15 @@
+#!/bin/bash
+
+device_id="7f19631d-942d-44a9-acbf-bec42b47d137"
+device_node="$(realpath "/dev/disk/by-uuid/${device_id}")"
+
+if [ ! -b "${device_node}" ]; then
+    notify-send "hdd-mount" "Disk is not attached"
+    exit 0
+fi
+
+if ! (grep -q "^${device_node}" /proc/mounts); then
+    sudo mount "${device_node}"
+else
+    notify-send "hdd-mount" "Disk is already mounted"
+fi

@@ -1,0 +1,13 @@
+#!/bin/bash
+
+device_id="7f19631d-942d-44a9-acbf-bec42b47d137"
+device_node="$(realpath "/dev/disk/by-uuid/${device_id}")"
+
+if (grep -q "^${device_node}" /proc/mounts); then
+    sudo umount "${device_node}"
+    if [ ! "${?}" = "0" ]; then
+        notify-send "hdd-unmount" "Unmount failed, proceed manually"
+    fi
+else
+    notify-send "hdd-unmount" "Disk is not mounted"
+fi
