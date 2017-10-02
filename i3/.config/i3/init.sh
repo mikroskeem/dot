@@ -10,6 +10,10 @@ if is_nvidia; then
     done
 fi
 
+# Setup acpi listener
+systemd-cat --identifier="ACPI listener" bash ~/bin/acpi-events.sh &
+
+# Setup displays
 bash ~/.config/i3/displays.sh
 
 # Polybar

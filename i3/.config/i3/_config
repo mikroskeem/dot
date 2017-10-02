@@ -99,22 +99,6 @@ bindsym --release $mod1+!!<Shift+s,$mod2+s,$mod2+e,$mod2+x> exec --no-startup-id
 # Lock
 bindsym --release $mod1+$mod2+l exec --no-startup-id slock
 
-# Audio controls
-bindsym $mod2+XF86Audio!!<Raise,Lower>Volume exec --no-startup-id \
-    amixer -c 1 -q set Master 1dB!!<+,-> unmute
-
-bindsym XF86Audio!!<Raise,Lower>Volume exec --no-startup-id \
-    pactl set-sink-volume alsa_output.pci-0000_00_1b.0.analog-stereo !!<+,->1%
-
-bindsym $mod2+XF86AudioMute exec --no-startup-id amixer -c 1 -q set Master toggle
-bindsym XF86AudioMute exec --no-startup-id pactl set-sink-mute alsa_output.pci-0000_00_1b.0.analog-stereo toggle
-
-# MPD controls
-bindsym Shift+XF86Audio!!<Raise,Lower>Volume exec --no-startup-id \
-    mpc -h ~/.config/mpd/mpd.sock volume !!<+,->2
-bindsym XF86Audio!!<Play,Next,Prev> exec --no-startup-id \
-    mpc -h ~/.config/mpd/mpd.sock !!toggle,next,prev
-
 # Backlight controls
 bindsym XF86MonBrightness!!<Up,Down> \
     exec --no-startup-id light -!!<A,U> 2
