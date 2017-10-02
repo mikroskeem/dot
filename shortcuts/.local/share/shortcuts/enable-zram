@@ -1,0 +1,5 @@
+#!/bin/bash
+
+if ! (lsmod | grep -q "^zram"); then
+    ~/bin/zram.sh &>/dev/null
+fi
