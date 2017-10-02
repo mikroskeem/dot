@@ -1,6 +1,6 @@
 !! ------ Rofi configuration
 
-rofi.modi: window,drun,run,ssh,wifi:~/bin/wifi.sh
+rofi.modi: window,drun,run,shortcuts:~/bin/shortcuts.sh,display:~/bin/display.sh,wifi:~/bin/wifi.sh
 rofi.color-enabled: true
 rofi.fullscreen: true
 rofi.scrollbar-width: 0

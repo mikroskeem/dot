@@ -83,7 +83,7 @@ bindsym $mod1+!!<r,Shift+g,Shift+e,F9> mode "$mode_!!<resize,gaps,system,raw>"
 ### Keybinds
 
 # Menu
-bindsym $mod1+!!d,Shift+d exec --no-startup-id rofi -show !!drun,ssh
+bindsym $mod1+!!d,$mod2+d,Shift+d exec --no-startup-id rofi -show !!drun,shortcuts,display
 bindsym $mod2+Tab exec --no-startup-id rofi -show window
 bindsym $mod1+F7 exec --no-startup-id passmenu --type
 bindsym $mod1+F8 exec --no-startup-id ~/bin/snippets.sh
@@ -95,6 +95,9 @@ bindsym $mod1+Shift+Return exec urxvt -name floatingURxvt
 
 bindsym --release $mod1+!!<Shift+s,$mod2+s,$mod2+e,$mod2+x> exec --no-startup-id \
     ~/bin/0x0-gui !!screenshotselect,screenshot,shorten,upload
+
+# Lock
+bindsym --release $mod1+$mod2+l exec --no-startup-id slock
 
 # Audio controls
 bindsym $mod2+XF86Audio!!<Raise,Lower>Volume exec --no-startup-id \
@@ -118,6 +121,8 @@ bindsym XF86MonBrightness!!<Up,Down> \
 
 bindsym $mod1+!!Prior,Next \
     exec --no-startup-id light -!!<A,U> 2
+
+bindsym $mod2+b exec --no-startup-id i3-input -F 'exec --no-startup-id light -S %s' -P "Brightness: "
 
 ### Scratchpad
 
@@ -149,7 +154,8 @@ for_window [class="URxvt" instance="floatingURxvt"] floating enable
 for_window [class="Pinentry" instance="pinentry"] floating enable
 for_window [class="qjackctl" instance="qjackctl"] floating enable
 for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
-for_window [class="sun-applet-Main" instance="sun-awt-X11-XFramePeer"] floating enable
+for_window [class="arandr" instance="Arandr"] floating enable
+for_window [class="sun-applet-main" instance="sun-awt-x11-xframepeer"] floating enable
 for_window [window_role="pop-up"] floating enable
 # Authy
 for_window [class="Chrom*" instance="crx_gaedmjdfmmahhbjefcbgaolhhanlaolb"] floating enable

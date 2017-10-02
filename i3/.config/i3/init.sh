@@ -1,12 +1,16 @@
 #!/bin/bash
 
+source ~/.config/i3/common.sh
+
 # NVIDIA sw cursor quirk workaround
-if (glxinfo | grep "OpenGL vendor string:" | grep -q "NVIDIA Corporation"); then
+if is_nvidia; then
     for output in 'eDP-1-1' 'HDMI-1-1'; do
         xrandr --output "${output}" --set 'PRIME Synchronization' '0'
         xrandr --output "${output}" --set 'PRIME Synchronization' '1'
     done
 fi
+
+bash ~/.config/i3/displays.sh
 
 # Polybar
 systemd-cat --identifier="polybar-${DISPLAY}" polybar -r default &

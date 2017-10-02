@@ -1,0 +1,3 @@
+#!/bin/bash
+
+touch -m "$(realpath ~/.config/polybar/config)"

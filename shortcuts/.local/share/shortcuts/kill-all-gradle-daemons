@@ -1,0 +1,32 @@
+#!/bin/bash
+
+is_gradle () {
+    local cmdline="${1}"
+    if (echo "${cmdline}" | grep -q "gradle") || (echo "${cmdline}" | grep "kotlin-compiler"); then
+        return 0
+    else
+        return 1
+    fi
+}
+
+can_kill () {
+    local pid="${1}"
+    local own_uid="$(id -u)"
+    local own_gid="$(id -g)"
+    local running_uid="$(cat /proc/${pid}/status | awk '/Uid:/{print $2}')"
+    local running_gid="$(cat /proc/${pid}/status | awk '/Gid:/{print $2}')"
+    if [ "${own_uid}" = "${running_uid}" -a "${own_gid}" = "${running_gid}" ]; then
+        return 0
+    else
+        return 1
+    fi
+}
+
+for pid in $(pgrep java); do
+    if can_kill "${pid}"; then
+        proc_cmdline="$(cat "/proc/${pid}/cmdline" | tr '\0' ' ')"
+        if is_gradle "${proc_cmdline}"; then
+            kill -TERM "${pid}" &>/dev/null
+        fi
+    fi
+done
