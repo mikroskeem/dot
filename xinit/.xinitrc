@@ -2,7 +2,7 @@
 if (glxinfo | grep "OpenGL vendor string:" | grep -q "NVIDIA Corporation"); then
     xrandr --setprovideroutputsource modesetting NVIDIA-0
 else
-    export DRI_PRIME=1
+    [ -f ~/.ilikenouveau ] && export DRI_PRIME=1
 fi
 xrandr --dpi 106
 xrandr --auto
