@@ -23,9 +23,11 @@ EndSection
 
 if ! readlink "${FILE}" 1>/dev/null ; then
     sudo ln -sf /dev/null "${FILE}"
+    echo "Switched to Intel"
 else
     sudo rm "${FILE}"
     echo -en "$CONFIG" | sudo tee "${FILE}" 1> /dev/null
+    echo "Switched to NVIDIA"
 fi
 
 echo "Don't forget to restart your Xorg session!"
