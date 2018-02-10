@@ -212,7 +212,7 @@ label-indicator-underline = ${colors.base0E}
 
 ; Volume module
 [module/volume]
-type = internal/volume
+type = internal/alsa
 
 format-volume = "%{A3:/usr/bin/pavucontrol:}<label-volume> <bar-volume>%{A}"
 format-volume-underline = ${colors.base0D}
