@@ -27,7 +27,7 @@ DISPLAY=${DISPLAY:=":0"}
         notify-send -t 500 -i info "0x0 file upload: ${url}" "Link pasted to clipboard"
     elif [ "${1}" = "screenshotselect" ]; then
         # Screenshot file
-        local d=~/Pictures/Screenshots/screenshot-$(date +%d_%m_%Y-%H:%M:%S).png
+        local d=~/Pictures/Screenshots/screenshot-$(date +%Y_%m_%d-%H:%M:%S).png
         if ! maim -s ${d}; then
             echo "Failed to execute screenshot application"
             return
@@ -41,7 +41,7 @@ DISPLAY=${DISPLAY:=":0"}
         xdg-open "${url}"
     elif [ "${1}" = "screenshot" ]; then
         # Screenshot file
-        local d=~/Pictures/Screenshots/screenshot-$(date +%d_%m_%Y-%H:%M:%S).png
+        local d=~/Pictures/Screenshots/screenshot-$(date +%Y_%m_%d-%H:%M:%S).png
         if ! maim ${d}; then
             echo "Failed to execute screenshot application"
             return
