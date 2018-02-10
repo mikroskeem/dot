@@ -48,7 +48,6 @@ background = ${colors.base01}
 
 ; Fonts
 font-0 = "Noto Sans:size=10"
-font-1 = "Font Awesome:size=10"
 
 ; Position & padding
 bottom = true
@@ -151,7 +150,7 @@ interval = 0.5
 
 format = "<label>"
 format-underline = ${colors.base09}
-label = " %percentage%%"
+label = "CPU %percentage%%"
 
 ; RAM
 [module/ram]
@@ -159,7 +158,7 @@ type = internal/memory
 interval = 2
 format = "<label>"
 format-underline = ${colors.base0B}
-label = " %gb_used%/%gb_total%"
+label = "RAM %gb_used%/%gb_total%"
 
 ; Wifi status
 [module/wlan]
@@ -171,8 +170,8 @@ format-connected = "%{A1:rofi -show wifi:}<label-connected>%{A}"
 format-connected-underline = ${colors.underline}
 format-disconnected = "%{A1:rofi -show wifi:}<label-disconnected>%{A}"
 format-disconnected-underline = ${colors.error}
-label-connected = "   %essid% |  %signal%%  %downspeed%"
-label-disconnected = "  "
+label-connected = "WiFi %essid% | %signal%% %downspeed%"
+label-disconnected = "WiFi off"
 
 ; Ethernet status
 [module/eth]
@@ -182,11 +181,11 @@ interval = 3.0
 
 format-connected = "<label-connected>"
 format-connected-underline = ${colors.underline}
-label-connected = "  [%linkspeed%]"
+label-connected = "Eth [%linkspeed%]"
 
 format-disconnected = "<label-disconnected>"
 format-disconnected-underline = ${colors.error}
-label-disconnected = "  "
+label-disconnected = "Eth off"
 
 ; Window title module
 [module/xwindow]
@@ -199,12 +198,12 @@ type = internal/xkeyboard
 blacklist-0 = num lock
 blacklist-1 = scroll lock
 
-format = " <label-layout> <label-indicator>"
+format = "Kb <label-layout> <label-indicator>"
 format-underline = ${colors.base0E}
 
 label-layout = "%layout%"
 
-label-indicator = ""
+label-indicator = "!"
 label-indicator-padding = 2
 label-indicator-margin = 1
 label-indicator-foreground = ${colors.error}
@@ -216,11 +215,11 @@ type = internal/alsa
 
 format-volume = "%{A3:/usr/bin/pavucontrol:}<label-volume> <bar-volume>%{A}"
 format-volume-underline = ${colors.base0D}
-label-volume = " %percentage%%"
+label-volume = "Vol %percentage%%"
 
 format-muted = "%{A3:/usr/bin/pavucontrol:}<label-muted> <bar-volume>%{A}"
 format-muted-underline = ${colors.error}
-label-muted = "  %percentage%%"
+label-muted = "Vol M! %percentage%%"
 
 bar-volume-width = 10
 bar-volume-foreground-0 = #55aa55
@@ -252,22 +251,22 @@ format-charging-underline = ${colors.base0A}
 format-discharging = "%{A1:/usr/bin/showbatt:}<ramp-capacity> <label-discharging>%{A}"
 format-discharging-underline = ${colors.base09}
 
-label-full = "  "
+label-full = "Batt full"
 format-full = "%{A1:/usr/bin/showbatt:}<label-full> 100%%{A}"
 format-full-underline = ${colors.base0B}
 
-ramp-capacity-0 = ""
-ramp-capacity-1 = ""
-ramp-capacity-2 = ""
-ramp-capacity-3 = ""
-ramp-capacity-4 = ""
+ramp-capacity-0 = "0/4"
+ramp-capacity-1 = "1/4"
+ramp-capacity-2 = "2/4"
+ramp-capacity-3 = "3/4"
+ramp-capacity-4 = "4/4"
 ramp-capacity-foreground = ${colors.base05}
 
-animation-charging-0 = " "
-animation-charging-1 = " "
-animation-charging-2 = " "
-animation-charging-3 = " "
-animation-charging-4 = " "
+animation-charging-0 = "! 0/4"
+animation-charging-1 = "! 1/4"
+animation-charging-2 = "! 2/4"
+animation-charging-3 = "! 3/4"
+animation-charging-4 = "! 4/4"
 animation-charging-foreground = ${colors.base05}
 animation-charging-framerate = 750
 

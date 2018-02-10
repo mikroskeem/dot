@@ -28,7 +28,7 @@ bindsym $mod1+Shift+!!w,space !!<layout stacking,floating toggle>
 bindsym $mod1+!!h,v split !!h,v
 
 ### Workspaces
-set $w!!1..10 !!1:,2..8,9:,10:
+set $w!!1..10 !!1..10
 
 # Switch between workspaces
 bindsym $mod1!!<2!,+Shift>+!!1!1..9,0 !!<2!,move container to >workspace $w!!1!1..10
