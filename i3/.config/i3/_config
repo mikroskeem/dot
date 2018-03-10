@@ -156,6 +156,7 @@ for_window [class="qjackctl" instance="qjackctl"] floating enable
 for_window [class="Pavucontrol" instance="pavucontrol"] floating enable
 for_window [class="arandr" instance="Arandr"] floating enable
 for_window [class="sun-applet-main" instance="sun-awt-x11-xframepeer"] floating enable
+for_window [class="com-osbuddy-loader-Loader" instance="sun-awt-X11-XFramePeer"] floating enable
 for_window [window_role="pop-up"] floating enable
 # Authy
 for_window [class="Chrom*" instance="crx_gaedmjdfmmahhbjefcbgaolhhanlaolb"] floating enable
