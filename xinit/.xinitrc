@@ -14,5 +14,12 @@ xrandr --auto
 # X resources
 xrdb -l ~/.Xresources
 
+# Wine
+export WINEDEBUG=-all
+
 # WM
-exec systemd-cat --identifier="i3-${DISPLAY}" i3
+if [ "${XDG_VTNR}" -eq 2 ]; then
+    exec systemd-cat --identifier="openbox-${DISPLAY}" openbox
+else
+    exec systemd-cat --identifier="i3-${DISPLAY}" i3
+fi
