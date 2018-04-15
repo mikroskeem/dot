@@ -3,25 +3,6 @@
 FILE="/usr/share/X11/xorg.conf.d/10-nvidia-drm-outputclass.conf"
 XORG_FILE="/etc/X11/xorg.conf"
 
-# Update when it gets updated in 'nvidia-utils' package
-CONFIG='
-Section "OutputClass"
-    Identifier "intel"
-    MatchDriver "i915"
-    Driver "modesetting"
-EndSection
-
-Section "OutputClass"
-    Identifier "nvidia"
-    MatchDriver "nvidia-drm"
-    Driver "nvidia"
-    Option "AllowEmptyInitialConfiguration"
-    Option "PrimaryGPU" "yes"
-    ModulePath "/usr/lib/nvidia/xorg"
-    ModulePath "/usr/lib/xorg/modules"
-EndSection
-'
-
 XORG_CONF='
 Section "Module"
     Disable "nvidia"
@@ -59,7 +40,7 @@ has_nvidia () {
 
 nvidia_off () {
     # Disable Xorg configuration
-    sudo ln -sf /dev/null "${FILE}"
+    sudo mount --bind /dev/null "${FILE}"
     echo -en "${XORG_CONF}" | sudo tee "${XORG_FILE}" 1>/dev/null
 
     # Remove modules and turn GPU off
@@ -67,22 +48,19 @@ nvidia_off () {
     rmmod_loaded "nvidia_modeset"
     rmmod_loaded "nvidia"
 
-    echo -e "blacklist nvidia_drm\nblacklist nvidia_modeset\nblacklist nvidia" | sudo tee /etc/modprobe.d/20-nvidia.conf >/dev/null
-
     sudo tee /proc/acpi/bbswitch <<< OFF >/dev/null
 }
 
 nvidia_on () {
     sudo rm "${XORG_FILE}" || true
-    sudo rm "${FILE}" || true
 
     # Restore Xorg configuration
-    echo -en "$CONFIG" | sudo tee "${FILE}" 1>/dev/null
+    if (cat /proc/mounts | grep -q "${FILE}"); then
+        sudo umount "${FILE}"
+    fi
 
     # Turn GPU on
     sudo tee /proc/acpi/bbswitch <<<ON >/dev/null
-
-    sudo rm /etc/modprobe.d/20-nvidia.conf
 
     # Load nvidia modules
     has_module "nvidia_drm" || sudo modprobe nvidia_drm modeset=1
