@@ -1,8 +1,8 @@
 ! ------ Urxvt configuration
 
 !! Fonts 
-URxvt.font: xft:xos4 Terminus:style=Regular:size=10
-URxvt.boldFont: xft:xos4 Terminus:style=Bold:size=10
+URxvt.font: xft:Hack:style=Regular:size=10
+URxvt.boldFont: xft:Hack:style=Bold:size=10
 
 !! Buffer
 URxvt.saveLines: 24000
@@ -22,7 +22,7 @@ URxvt.matcher.button: 1
 
 !! Whoa, transparency
 !URxvt.transparent: true
-URxvt.background:    rgba:0000/0000/0000/aaaa
+!URxvt.background:    rgba:0000/0000/0000/aaaa
 !URxvt.inheritPixmap: true
 URxvt.shading: 20
 URxvt.depth: 32
