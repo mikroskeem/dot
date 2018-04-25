@@ -33,12 +33,15 @@ URxvt.cursorUnderline: false
 URxvt.pointerBlank: true
 
 !! Extensions
-URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select
+URxvt.perl-ext-common:      default,clipboard,url-select,keyboard-select,bell-command
 URxvt.url-select.launcher:  /usr/bin/xdg-open
 URxvt.url-select.underline: true
 URxvt.keysym.M-u:           perl:url-select:select_next
 URxvt.keysym.M-Escape:      perl:keyboard-select:activate
 URxvt.keysym.M-s:           perl:keyboard-select:search
+
+!! Bell
+URxvt.bell-command: canberra-gtk-play -i bell
 
 !! Fix the damn clipboard
 URxvt.keysym.Shift-Control-C: perl:clipboard:copy
