@@ -213,11 +213,11 @@ label-indicator-underline = ${colors.base0E}
 [module/volume]
 type = internal/alsa
 
-format-volume = "%{A3:/usr/bin/pavucontrol:}<label-volume> <bar-volume>%{A}"
+format-volume = "%{A3:/usr/bin/pavucontrol &:}<label-volume> <bar-volume>%{A}"
 format-volume-underline = ${colors.base0D}
 label-volume = "Vol %percentage%%"
 
-format-muted = "%{A3:/usr/bin/pavucontrol:}<label-muted> <bar-volume>%{A}"
+format-muted = "%{A3:/usr/bin/pavucontrol &:}<label-muted> <bar-volume>%{A}"
 format-muted-underline = ${colors.error}
 label-muted = "Vol M! %percentage%%"
 
