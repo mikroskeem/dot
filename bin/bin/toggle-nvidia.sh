@@ -52,7 +52,7 @@ nvidia_off () {
 }
 
 nvidia_on () {
-    sudo rm "${XORG_FILE}" || true
+    [ -f "${XORG_FILE}" ] && sudo rm "${XORG_FILE}"
 
     # Restore Xorg configuration
     if (cat /proc/mounts | grep -q "${FILE}"); then
