@@ -92,7 +92,7 @@ if [ ! -z "${DISPLAY}" ]; then
     exit 0
 fi
 
-if ! readlink "${FILE}" || has_nvidia; then
+if ! (cat /proc/mounts | grep -q "${FILE}") || has_nvidia; then
     nvidia_off
     echo "Switched to Intel"
     echo "yes" > ~/.nvidia-off
